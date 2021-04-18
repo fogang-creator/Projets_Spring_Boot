@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+<title>Registration and Login App</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	  
+	
+
+</head>
+<body>
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	
+			<div class="container">
+				<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">
+					Bibliotheque </a>
+				</div>	
+				
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li ><a th:href="@{/doc}"> Mes documents</a></li>			  
+						
+			 <li  th:if="${isAdmin}"><a th:href="@{/liste}"> Administrateur</a></li>	 
+						
+						
+						<!--	<li><a th:href="@{/liste}"> Administrateur</a></li>  -->
+						
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"> Se deconnecter</a></li>
+				</ul>
+			</div>
+			</div>
+	</nav>
+
+	<br>
+	<br>
+<!-- <div>  -->
+ 
+
+ 
+ <h1> Mes livres  </h1>
+ 
+ <table>
+<tr align="left"> 
+
+
+
+
+<h1>Listes des livres disponibles  </h1>
+
+<!-- </div> -->
+</tr>
+
+<tr>
+<div class="col-sm-5" align="center">
+ <div class="panel-body" align="center"> 
+ 
+ <table class="table" border="2" cellpadding="10">
+ <thead class="thead-dark">
+ <tr>  
+
+  <th> titre </th>
+  <th> editeur </th>
+   <th> auteur</th>
+    <th> categorie </th>
+    <th> quantite stock </th>
+     <th> action </th>
+     
+ </tr>
+ </thead>
+ 
+ <tbody> 
+ <tr th:each="livre: ${livre}"> 
+ <span th:if="${livre.getQte_stock()>0}"> 
+  <td th:text="${livre.titre}" > Titre</td>
+   <td th:text="${livre.editeur}" > Editeur</td>
+    <td th:text="${livre.auteur}"> Auteur </td>
+     <td th:text="${livre.categorie}" > Categorie </td>
+       <td th:text="${livre.qte_stock}" > quantité stock </td>
+  <td>
+  <a th:href="@{'/emprunt/' +${livre.id}}"> Emprunter  </a>
+  
+  </td>
+  </tr>
+  </span> 
+ </tbody>
+ </table>
+ 
+
+ </div>
+  </div>
+  </tr>
+  </tbody>
+  </table>
+  <div> 
+</body>
+</html>
